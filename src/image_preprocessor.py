@@ -13,7 +13,7 @@ face_mesh = mp.solutions.face_mesh.FaceMesh(static_image_mode=True, max_num_face
 
 @st.cache()
 def image_preprocessor(uploaded_image):
-    processed_image = cv2.imdecode(np.frombuffer(uploaded_image.getvalue(), np.uint8), cv2.IMREAD_COLOR)
+    processed_image = cv2.imdecode(np.frombuffer(uploaded_image, np.uint8), cv2.IMREAD_COLOR)
     processed_image = cv2.cvtColor(processed_image, cv2.COLOR_BGR2RGB)
     image_height, image_width, _ = processed_image.shape
 

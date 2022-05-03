@@ -4,3 +4,4 @@ mediapipe~=0.8.9.1
 numpy~=1.22.3
 streamlit~=1.8.1
 tensorflow~=2.8.0
+requests~=2.27.1
