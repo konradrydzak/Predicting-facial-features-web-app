@@ -87,6 +87,7 @@ if center.button(label="Or use an example: a thispersondoesnotexist.com image"):
             st.error("No face detected in the picture")
     _, center, _ = st.columns([2, 1, 2])
     center.button(label="Close example")
+
 else:
     images_to_predict = []
 
