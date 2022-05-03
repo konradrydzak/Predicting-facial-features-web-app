@@ -18,11 +18,13 @@ st.set_page_config(
 
 models_directory = "Models"
 try:
-    model_to_load = os.listdir(os.path.join(os.getcwd(), models_directory))[0]
+    path_to_model = os.path.join(os.getcwd(), models_directory)
+    model_to_load = os.listdir(path_to_model)[0]
 except FileNotFoundError:
-    model_to_load = os.listdir(os.path.join(os.getcwd(), 'src', models_directory))[0]
+    path_to_model = os.path.join(os.getcwd(), 'src', models_directory)
+    model_to_load = os.listdir(path_to_model)[0]
 
-loaded_model = tf.keras.models.load_model(os.path.join(models_directory, model_to_load))
+loaded_model = tf.keras.models.load_model(os.path.join(path_to_model, model_to_load))
 
 features = ['5 o Clock Shadow', 'Arched Eyebrows', 'Attractive', 'Bags Under Eyes', 'Bald', 'Bangs', 'Big Lips',
             'Big Nose', 'Black Hair', 'Blond Hair', 'Blurry', 'Brown Hair', 'Bushy Eyebrows', 'Chubby',
