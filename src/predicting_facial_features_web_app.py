@@ -17,7 +17,10 @@ st.set_page_config(
 # facial features predictions setup
 
 models_directory = "Models"
-model_to_load = os.listdir(os.path.join(os.getcwd(), models_directory))[0]
+try:
+    model_to_load = os.listdir(os.path.join(os.getcwd(), models_directory))[0]
+except FileNotFoundError:
+    model_to_load = os.listdir(os.path.join(os.getcwd(), 'src', models_directory))[0]
 
 loaded_model = tf.keras.models.load_model(os.path.join(models_directory, model_to_load))
 
