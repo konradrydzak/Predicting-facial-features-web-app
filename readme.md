@@ -6,7 +6,7 @@ You can preview the app at: [share.streamlit.io](https://share.streamlit.io/konr
 
 ## Skills used
 
-- knowledge  about deep learning for computer vision (with Tensorflow and Keras) - *outside this repo, for master thesis purposes*
+- knowledge about deep learning in computer vision (with Tensorflow and Keras) - *outside this repo, for master thesis purposes*
 - using the streamlit framework for creating a shareable web app
 - provided an example use case based on a [thispersondoesnotexist.com](https://thispersondoesnotexist.com/) image
 
