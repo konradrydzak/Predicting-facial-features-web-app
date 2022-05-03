@@ -19,7 +19,6 @@ def image_preprocessor(uploaded_image):
 
     results = face_mesh.process(processed_image)
     if not results.multi_face_landmarks:
-        st.error("No face detected in the picture")
         return None
     else:
         face_landmarks = results.multi_face_landmarks[0]
@@ -57,7 +56,6 @@ def image_preprocessor(uploaded_image):
 
         results = face_detection.process(processed_image)
         if not results.detections:
-            st.error("No face detected in the picture")
             return None
         else:
             detection = results.detections[0]  # we pick the most probable result

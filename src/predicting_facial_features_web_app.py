@@ -54,6 +54,8 @@ if uploaded_images:
                 _, center, _ = st.columns([1, 2, 1])
                 if center.checkbox(label="Predict facial features on this image", key=image.name):
                     images_to_predict.append([output_image, image.name])
+            else:
+                st.error("No face detected in the picture")
 
 if images_to_predict:
     st.header("Predictions: ")
