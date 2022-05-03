@@ -14,7 +14,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# facial features predictions setup
+# facial features prediction model setup
 
 models_directory = "Models"
 try:
@@ -26,6 +26,8 @@ except FileNotFoundError:
 
 loaded_model = tf.keras.models.load_model(os.path.join(path_to_model, model_to_load))
 
+# facial features names setup
+
 features = ['5 o Clock Shadow', 'Arched Eyebrows', 'Attractive', 'Bags Under Eyes', 'Bald', 'Bangs', 'Big Lips',
             'Big Nose', 'Black Hair', 'Blond Hair', 'Blurry', 'Brown Hair', 'Bushy Eyebrows', 'Chubby',
             'Double Chin', 'Eyeglasses', 'Goatee', 'Gray Hair', 'Heavy Makeup', 'High Cheekbones', 'Male',
@@ -33,7 +35,7 @@ features = ['5 o Clock Shadow', 'Arched Eyebrows', 'Attractive', 'Bags Under Eye
             'Receding Hairline', 'Rosy Cheeks', 'Sideburns', 'Smiling', 'Straight Hair', 'Wavy Hair',
             'Wearing Earrings', 'Wearing Hat', 'Wearing Lipstick', 'Wearing Necklace', 'Wearing Necktie', 'Young']
 
-_, center, _ = st.columns([1, 5, 1])
+_, center, _ = st.columns([1, 5, 1])  # is used to "cheat" center alignment of elements
 center.title("Predicting facial features")
 
 st.header("Upload images: ")
@@ -74,7 +76,7 @@ if images_to_predict:
             _, center, _ = st.columns([1, 1, 1])
             center.image(image=image, caption=f"{filename[:-4]}")
 
-            for prediction1, prediction2 in zip(predictions[::2], predictions[1::2]):
+            for prediction1, prediction2 in zip(predictions[::2], predictions[1::2]):  # take pairs of predictions to display them in columns correctly
                 parameter1, result1 = prediction1
                 parameter2, result2 = prediction2
 

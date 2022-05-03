@@ -4,7 +4,7 @@ import mediapipe as mp
 import numpy as np
 import streamlit as st
 
-# image preprocessing setup
+# image preprocessing frameworks setup
 
 face_detection = mp.solutions.face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.5)
 face_mesh = mp.solutions.face_mesh.FaceMesh(static_image_mode=True, max_num_faces=1, refine_landmarks=True,
@@ -23,6 +23,7 @@ def image_preprocessor(uploaded_image):
     else:
         face_landmarks = results.multi_face_landmarks[0]
 
+        # this step is used for aligning image to even out detected eyes level
         LEFT_EYE_CORNER_INDEX = 33
         LEFT_EYE_POSITION = (
             int(face_landmarks.landmark[LEFT_EYE_CORNER_INDEX].x * image_width),
@@ -60,6 +61,7 @@ def image_preprocessor(uploaded_image):
         else:
             detection = results.detections[0]  # we pick the most probable result
 
+            # this step is used for calculating a bounding_box (with enough spacing) to crop the image on face only
             bb_data = detection.location_data.relative_bounding_box
             bounding_box = (
                 int(bb_data.xmin * image_width - 0.4 * bb_data.width * image_width),
@@ -77,7 +79,7 @@ def image_preprocessor(uploaded_image):
 
             # cropps and resizes to final dimentions
             processed_image = processed_image[bounding_box[1]:bounding_box[1] + bounding_box[3],
-                              bounding_box[0]:bounding_box[0] + bounding_box[2]]
+                                              bounding_box[0]:bounding_box[0] + bounding_box[2]]
             processed_image = imutils.resize(processed_image, width=178,
                                              height=218)  # resizes to either 178 or 218 (with high quality)
             processed_image = cv2.resize(processed_image,
