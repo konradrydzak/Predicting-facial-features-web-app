@@ -21,7 +21,7 @@ models_directory = "Models"
 try:
     path_to_model = os.path.join(os.getcwd(), models_directory)
     model_to_load = os.listdir(path_to_model)[0]
-except FileNotFoundError:
+except FileNotFoundError:  # for different pathing in share.streamlit.io
     path_to_model = os.path.join(os.getcwd(), 'src', models_directory)
     model_to_load = os.listdir(path_to_model)[0]
 
