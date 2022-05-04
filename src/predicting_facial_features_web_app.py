@@ -65,9 +65,9 @@ if center.button(label="Or use an example: a thispersondoesnotexist.com image"):
             for index, prediction in enumerate(model_predictions):
                 predictions.append([features[index], [bool(round(prediction)), round(prediction, 3)]])
 
-            for prediction1, prediction2 in zip(predictions[::2], predictions[1::2]):  # take pairs of predictions to display them in columns correctly
-                parameter1, result1 = prediction1
-                parameter2, result2 = prediction2
+            for i in range(0, len(predictions), 2):  # needs to use pairs of predictions to fill columns nicely
+                parameter1, result1 = predictions[i]
+                parameter2, result2 = predictions[i + 1]
 
                 col1, col2, col3, col4 = st.columns([2, 1, 2, 1])
 
@@ -123,10 +123,9 @@ else:
                 _, center, _ = st.columns([1, 1, 1])
                 center.image(image=image, caption=f"{filename[:-4]}")
 
-                for prediction1, prediction2 in zip(predictions[::2], predictions[
-                                                                      1::2]):  # take pairs of predictions to display them in columns correctly
-                    parameter1, result1 = prediction1
-                    parameter2, result2 = prediction2
+                for i in range(0, len(predictions), 2):
+                    parameter1, result1 = predictions[i]
+                    parameter2, result2 = predictions[i + 1]
 
                     col1, col2, col3, col4 = st.columns([2, 1, 2, 1])
 
