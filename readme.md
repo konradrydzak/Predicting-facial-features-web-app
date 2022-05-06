@@ -1,6 +1,6 @@
 # Predicting facial features web app
 
-Simple web app for user a testing deep neural networks predicting facial features (created for master thesis purposes).
+Simple web app for user testing a deep neural networks predicting facial features (created for master thesis purposes).
 
 You can preview the app at: [share.streamlit.io](https://share.streamlit.io/konradrydzak/predicting-facial-features-web-app/src/predicting_facial_features_web_app.py)
 
