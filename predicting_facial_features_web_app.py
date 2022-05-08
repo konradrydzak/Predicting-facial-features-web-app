@@ -18,13 +18,9 @@ st.set_page_config(
 
 # facial features prediction model setup
 
-models_directory = "Models"
-try:
-    path_to_model = os.path.join(os.getcwd(), models_directory)
-    model_to_load = os.listdir(path_to_model)[0]
-except FileNotFoundError:  # for different pathing in share.streamlit.io
-    path_to_model = os.path.join(os.getcwd(), 'src', models_directory)
-    model_to_load = os.listdir(path_to_model)[0]
+model_directory = "Model"
+path_to_model = os.path.join(os.getcwd(), model_directory)
+model_to_load = os.listdir(path_to_model)[0]
 
 # streamlit session_state (state of the page on previous run) initiation
 
