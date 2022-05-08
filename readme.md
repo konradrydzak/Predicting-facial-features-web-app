@@ -2,12 +2,12 @@
 
 Simple web app for user testing a deep neural networks predicting facial features (created for master thesis purposes).
 
-You can preview the app at: [share.streamlit.io](https://share.streamlit.io/konradrydzak/predicting-facial-features-web-app/src/predicting_facial_features_web_app.py)
+You can preview the app at: [share.streamlit.io](https://share.streamlit.io/konradrydzak/predicting-facial-features-web-app/predicting_facial_features_web_app.py)
 
 ## Setup
 
 1. Install required dependencies: `pip install -r requirements.txt`
-2. Run program at *src* with command: `streamlit run predicting_facial_features_web_app.py`
+2. Run program with command: `streamlit run predicting_facial_features_web_app.py`
 3. Web app should be running at: http://localhost:8501/
 
 ## Skills used
