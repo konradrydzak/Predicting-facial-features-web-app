@@ -2,7 +2,6 @@ import os
 
 import requests
 import streamlit as st
-import streamlit.errors
 import tensorflow as tf
 
 from image_preprocessor import image_preprocessor
@@ -105,8 +104,8 @@ else:
                     try:
                         if center.checkbox(label="Predict facial features on this image", key=image.name):
                             images_to_predict.append([output_image, image.name])
-                    except streamlit.errors.DuplicateWidgetID:
-                        st.error("Please don't upload duplicate images/images with same filename. ")
+                    except st.errors.DuplicateWidgetID:
+                        st.error("Please don't upload duplicate images or images with same filename. ")
                 else:
                     st.error("No face detected in the picture")
 
