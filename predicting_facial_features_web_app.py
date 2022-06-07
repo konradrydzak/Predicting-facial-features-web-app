@@ -26,9 +26,7 @@ model_to_load = os.listdir(path_to_model)[0]
 
 if 'loaded_model' not in st.session_state:
     st.session_state.loaded_model = tf.keras.models.load_model(os.path.join(path_to_model, model_to_load))
-    loaded_model = st.session_state.loaded_model
-else:
-    loaded_model = st.session_state.loaded_model
+loaded_model = st.session_state.loaded_model
 
 # facial features names setup
 
