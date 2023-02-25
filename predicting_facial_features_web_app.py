@@ -40,7 +40,7 @@ features = ['5 o Clock Shadow', 'Arched Eyebrows', 'Attractive', 'Bags Under Eye
             'Wearing Earrings', 'Wearing Hat', 'Wearing Lipstick', 'Wearing Necklace', 'Wearing Necktie', 'Young']
 
 _, center, _ = st.columns([1, 5, 1])  # is used to "cheat" center alignment of elements
-center.title("Predicting facial features")
+center.title(":red[Predicting facial features]")
 
 st.header("Upload images: ")
 
@@ -50,7 +50,7 @@ _, center, _ = st.columns([1, 2.85, 1])
 if center.button(label="Or use an example: a thispersondoesnotexist.com image"):
     url = "https://thispersondoesnotexist.com/image"
     image = requests.get(url).content
-    st.header("Example preprocess results and predictions: ")
+    st.header(":violet[Example preprocess results and predictions: ]")
     with st.expander(label="thispersondoesnotexist.com/image"):
         col1, col2 = st.columns(2)
         try:
@@ -99,7 +99,7 @@ else:
     images_to_predict = []
 
     if uploaded_images:
-        st.header("Preprocess results: ")
+        st.header(":blue[Preprocess results: ]")
         for image in uploaded_images:
             with st.expander(label=image.name):
                 col1, col2 = st.columns(2)
@@ -122,7 +122,7 @@ else:
         return loaded_model_predictions
 
     if images_to_predict:
-        st.header("Predictions: ")
+        st.header(":orange[Predictions: ]")
         for image, filename in images_to_predict:
             with st.expander(label=filename):
                 image_tensor = tf.image.convert_image_dtype(image, dtype=tf.uint8)
@@ -145,14 +145,14 @@ else:
                     col1, col2, col3, col4 = st.columns([2, 1, 2, 1])
 
                     if result1[0]:
-                        col1.write(f"**{parameter1}** :heavy_check_mark:")
+                        col1.write(f":green[**{parameter1}** :heavy_check_mark:]")
                         col2.write(f"**{result1[0]} ({result1[1]:.3f})**")
                     else:
-                        col1.write(f"{parameter1} :x:")
+                        col1.write(f":red[{parameter1} :x:]")
                         col2.write(f"{result1[0]} ({result1[1]:.3f})")
                     if result2[0]:
-                        col3.write(f"**{parameter2}** :heavy_check_mark:")
+                        col3.write(f":green[**{parameter2}** :heavy_check_mark:]")
                         col4.write(f"**{result2[0]} ({result2[1]:.3f})**")
                     else:
-                        col3.write(f"{parameter2} :x:")
+                        col3.write(f":red[{parameter2} :x:]")
                         col4.write(f"{result2[0]} ({result2[1]:.3f})")
