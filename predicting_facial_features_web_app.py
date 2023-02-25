@@ -1,5 +1,6 @@
 import os
 
+import PIL
 import requests
 import streamlit as st
 import tensorflow as tf
@@ -50,41 +51,45 @@ if center.button(label="Or use an example: a thispersondoesnotexist.com image"):
     st.header("Example preprocess results and predictions: ")
     with st.expander(label="thispersondoesnotexist.com/image"):
         col1, col2 = st.columns(2)
-        col1.image(image=image, caption="Original image")
-        output_image = image_preprocessor(image)
-        if output_image is not None:
-            col2.image(image=output_image, caption="Cropped and aligned")
-
-            image_tensor = tf.image.convert_image_dtype(output_image, dtype=tf.uint8)
-            image_tensor = tf.expand_dims(image_tensor, 0)
-
-            predictions = []
-
-            model_predictions = loaded_model(image_tensor).numpy()[0]
-
-            for index, prediction in enumerate(model_predictions):
-                predictions.append([features[index], [bool(round(prediction)), round(prediction, 3)]])
-
-            for i in range(0, len(predictions), 2):  # needs to use pairs of predictions to fill columns nicely
-                parameter1, result1 = predictions[i]
-                parameter2, result2 = predictions[i + 1]
-
-                col1, col2, col3, col4 = st.columns([2, 1, 2, 1])
-
-                if result1[0]:
-                    col1.write(f"**{parameter1}** :heavy_check_mark:")
-                    col2.write(f"**{result1[0]} ({result1[1]:.3f})**")
-                else:
-                    col1.write(f"{parameter1} :x:")
-                    col2.write(f"{result1[0]} ({result1[1]:.3f})")
-                if result2[0]:
-                    col3.write(f"**{parameter2}** :heavy_check_mark:")
-                    col4.write(f"**{result2[0]} ({result2[1]:.3f})**")
-                else:
-                    col3.write(f"{parameter2} :x:")
-                    col4.write(f"{result2[0]} ({result2[1]:.3f})")
+        try:
+            col1.image(image=image, caption="Original image")
+            output_image = image_preprocessor(image)
+        except PIL.UnidentifiedImageError:
+            st.error("Could not load image from thispersondoesnotexist.com/image (webserver could be down)")
         else:
-            st.error("No face detected in the picture")
+            if output_image is not None:
+                col2.image(image=output_image, caption="Cropped and aligned")
+
+                image_tensor = tf.image.convert_image_dtype(output_image, dtype=tf.uint8)
+                image_tensor = tf.expand_dims(image_tensor, 0)
+
+                predictions = []
+
+                model_predictions = loaded_model(image_tensor).numpy()[0]
+
+                for index, prediction in enumerate(model_predictions):
+                    predictions.append([features[index], [bool(round(prediction)), round(prediction, 3)]])
+
+                for i in range(0, len(predictions), 2):  # needs to use pairs of predictions to fill columns nicely
+                    parameter1, result1 = predictions[i]
+                    parameter2, result2 = predictions[i + 1]
+
+                    col1, col2, col3, col4 = st.columns([2, 1, 2, 1])
+
+                    if result1[0]:
+                        col1.write(f"**{parameter1}** :heavy_check_mark:")
+                        col2.write(f"**{result1[0]} ({result1[1]:.3f})**")
+                    else:
+                        col1.write(f"{parameter1} :x:")
+                        col2.write(f"{result1[0]} ({result1[1]:.3f})")
+                    if result2[0]:
+                        col3.write(f"**{parameter2}** :heavy_check_mark:")
+                        col4.write(f"**{result2[0]} ({result2[1]:.3f})**")
+                    else:
+                        col3.write(f"{parameter2} :x:")
+                        col4.write(f"{result2[0]} ({result2[1]:.3f})")
+            else:
+                st.error("No face detected in the picture")
     _, center, _ = st.columns([2, 1, 2])
     center.button(label="Close example")
 
