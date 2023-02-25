@@ -11,7 +11,7 @@ face_mesh = mp.solutions.face_mesh.FaceMesh(static_image_mode=True, max_num_face
                                             min_detection_confidence=0.5)
 
 
-@st.cache()
+@st.cache_data
 def image_preprocessor(uploaded_image):
     processed_image = cv2.imdecode(np.frombuffer(uploaded_image, np.uint8), cv2.IMREAD_COLOR)
     processed_image = cv2.cvtColor(processed_image, cv2.COLOR_BGR2RGB)

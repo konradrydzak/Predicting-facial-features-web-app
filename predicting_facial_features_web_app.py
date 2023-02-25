@@ -18,15 +18,17 @@ st.set_page_config(
 
 # facial features prediction model setup
 
-model_directory = "Model"
-path_to_model = os.path.join(os.getcwd(), model_directory)
-model_to_load = os.listdir(path_to_model)[0]
 
-# streamlit session_state (state of the page on previous run) initiation
+@st.cache_resource
+def loading_ml_model():
+    model_directory = "Model"
+    path_to_model = os.path.join(os.getcwd(), model_directory)
+    model_to_load = os.listdir(path_to_model)[0]
+    model = tf.keras.models.load_model(os.path.join(path_to_model, model_to_load))
+    return model
 
-if 'loaded_model' not in st.session_state:
-    st.session_state.loaded_model = tf.keras.models.load_model(os.path.join(path_to_model, model_to_load))
-loaded_model = st.session_state.loaded_model
+
+loaded_model = loading_ml_model()
 
 # facial features names setup
 
@@ -42,7 +44,7 @@ center.title("Predicting facial features")
 
 st.header("Upload images: ")
 
-uploaded_images = st.file_uploader(label="", type=['png', 'jpg', 'jpeg'], accept_multiple_files=True)
+uploaded_images = st.file_uploader(label="uploaded_images", type=['png', 'jpg', 'jpeg'], accept_multiple_files=True, label_visibility="hidden")
 
 _, center, _ = st.columns([1, 2.85, 1])
 if center.button(label="Or use an example: a thispersondoesnotexist.com image"):
@@ -114,6 +116,11 @@ else:
                 else:
                     st.error("No face detected in the picture")
 
+    @st.cache_data
+    def load_model_predictions():
+        loaded_model_predictions = loaded_model(image_tensor).numpy()[0]
+        return loaded_model_predictions
+
     if images_to_predict:
         st.header("Predictions: ")
         for image, filename in images_to_predict:
@@ -123,11 +130,7 @@ else:
 
                 predictions = []
 
-                if f'model_predictions_{filename}' not in st.session_state:
-                    st.session_state[f'model_predictions_{filename}'] = loaded_model(image_tensor).numpy()[0]
-                    model_predictions = st.session_state[f'model_predictions_{filename}']
-                else:
-                    model_predictions = st.session_state[f'model_predictions_{filename}']
+                model_predictions = load_model_predictions()
 
                 for index, prediction in enumerate(model_predictions):
                     predictions.append([features[index], [bool(round(prediction)), round(prediction, 3)]])
