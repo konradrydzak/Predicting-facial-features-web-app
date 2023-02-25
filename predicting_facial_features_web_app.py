@@ -57,7 +57,7 @@ if center.button(label="Or use an example: a thispersondoesnotexist.com image"):
             col1.image(image=image, caption="Original image")
             output_image = image_preprocessor(image)
         except PIL.UnidentifiedImageError:
-            st.error("Could not load image from thispersondoesnotexist.com/image (webserver could be down)")
+            st.error("Could not load image from [thispersondoesnotexist.com/image](https://thispersondoesnotexist.com/image) (webserver could be down)")
         else:
             if output_image is not None:
                 col2.image(image=output_image, caption="Cropped and aligned")
