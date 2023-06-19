@@ -48,7 +48,7 @@ uploaded_images = st.file_uploader(label="uploaded_images", type=['png', 'jpg', 
 
 _, center, _ = st.columns([1, 2.85, 1])
 if center.button(label="Or use an example: a thispersondoesnotexist.com image"):
-    url = "https://thispersondoesnotexist.com/image"
+    url = "https://thispersondoesnotexist.com/"
     image = requests.get(url).content
     st.header(":violet[Example preprocess results and predictions: ]")
     with st.expander(label="thispersondoesnotexist.com/image"):
