@@ -1,6 +1,6 @@
 opencv-python==4.5.5.64
 imutils==0.5.4
-mediapipe==0.10.1
+mediapipe==0.10.21
 numpy==1.22.3
 streamlit==1.19.0
 tensorflow==2.12.0rc0
